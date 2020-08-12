@@ -15,17 +15,17 @@ public class WalletAccount {
 	private double accountBalance;
 	//private enum Status{ };
 	@ElementCollection
-	private List<Integer>transactionHistory;
+	private List<Integer>tHistory;
 	@Override
 	public String toString() {
-		return "WalletAccount [accountId=" + accountId + ", accountBalance=" + accountBalance + ", transactionHistory="
-				+ transactionHistory + "]";
+		return "WalletAccount [accountId=" + accountId + ", accountBalance=" + accountBalance + ", tHistory="
+				+ tHistory + "]";
 	}
-	public WalletAccount(int accountId, double accountBalance, List<Integer> transactionHistory) {
+	public WalletAccount(int accountId, double accountBalance, List<Integer> tHistory) {
 		super();
 		this.accountId = accountId;
 		this.accountBalance = accountBalance;
-		this.transactionHistory = transactionHistory;
+		this.tHistory = tHistory;
 	}
 	public int getAccountId() {
 		return accountId;
@@ -39,11 +39,11 @@ public class WalletAccount {
 	public void setAccountBalance(double accountBalance) {
 		this.accountBalance = accountBalance;
 	}
-	public List<Integer> getTransactionHistory() {
-		return transactionHistory;
+	public List<Integer> getTHistory() {
+		return tHistory;
 	}
-	public void setTransactionHistory(List<Integer> transactionHistory) {
-		this.transactionHistory = transactionHistory;
+	public void setTHistory(List<Integer> tHistory) {
+		this.tHistory = tHistory;
 	}
 	
 	public WalletAccount() {

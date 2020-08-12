@@ -12,10 +12,26 @@ public class AccountMsService {
 	@Autowired
 	private AccountMsRepo accountMsRepo;
 
-	public WalletAccount addWalletAccount(WalletAccount walletaccount) {
+	public WalletAccount addWalletAccount(WalletAccount walletAccount) {
 		// TODO Auto-generated method stub
-		return accountMsRepo.save(walletaccount);
+		return accountMsRepo.save(walletAccount);
 
 	}
 
+	public WalletAccount getAccountById(int id) {
+		// TODO Auto-generated method stub
+		
+		return accountMsRepo.getOne(id);
+	}
+	
+	public WalletAccount addAmount(WalletAccount walletAccount) {
+		// TODO Auto-generated method stub
+		WalletAccount account=accountMsRepo.getOne(walletAccount.getAccountId());
+	    double newamount=account.getAccountBalance()+walletAccount.getAccountBalance();
+		account.setAccountBalance(newamount);
+		return accountMsRepo.save(account);	
+	
+	}
+
+	
 }

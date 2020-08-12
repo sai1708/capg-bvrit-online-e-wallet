@@ -3,57 +3,55 @@ package com.capg.ewallet.model;
 public class WalletUser {
 	
 	
-	private int UserId;
-	private String UserName;
-	private String Password;
-	private String PhoneNumber;
-	private String LoginName;
+	private int userId;
+	private String userName;
+	private String password;
+	private String phoneNumber;
+	private String loginName;
 	public int getUserId() {
-		return UserId;
+		return userId;
 	}
 	public void setUserId(int userId) {
-		UserId = userId;
+		this.userId = userId;
 	}
 	public String getUserName() {
-		return UserName;
+		return userName;
 	}
 	public void setUserName(String userName) {
-		UserName = userName;
+		this.userName = userName;
 	}
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
 	public String getPhoneNumber() {
-		return PhoneNumber;
+		return phoneNumber;
 	}
 	public void setPhoneNumber(String phoneNumber) {
-		PhoneNumber = phoneNumber;
+		this.phoneNumber = phoneNumber;
 	}
 	public String getLoginName() {
-		return LoginName;
+		return loginName;
 	}
 	public void setLoginName(String loginName) {
-		LoginName = loginName;
+		this.loginName = loginName;
 	}
 	@Override
 	public String toString() {
-		return "WalletUser [UserId=" + UserId + ", UserName=" + UserName + ", Password=" + Password + ", PhoneNumber="
-				+ PhoneNumber + ", LoginName=" + LoginName + "]";
+		return "WalletUser [userId=" + userId + ", userName=" + userName + ", password=" + password + ", phoneNumber="
+				+ phoneNumber + ", loginName=" + loginName + "]";
 	}
 	public WalletUser(int userId, String userName, String password, String phoneNumber, String loginName) {
 		super();
-		UserId = userId;
-		UserName = userName;
-		Password = password;
-		PhoneNumber = phoneNumber;
-		LoginName = loginName;
+		this.userId = userId;
+		this.userName = userName;
+		this.password = password;
+		this.phoneNumber = phoneNumber;
+		this.loginName = loginName;
 	}
 	
-	public WalletUser() {
-		// TODO Auto-generated constructor stub
-	}
-
+	
+	
 }
