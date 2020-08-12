@@ -1,12 +1,8 @@
 package com.capg.ewallet.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class WalletUser {
 	
-	@Id
+	
 	private int UserId;
 	private String UserName;
 	private String Password;

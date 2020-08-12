@@ -2,15 +2,12 @@ package com.capg.ewallet.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity
+
 public class WalletTransactions {
 	
-	@Id
+	
 	private int TransactionId;
 	private String Description;
 	@DateTimeFormat(pattern="yyyy/mm/ddThh:mm:ss")

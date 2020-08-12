@@ -11,44 +11,43 @@ import javax.persistence.Id;
 public class WalletAccount {
 	
 	@Id
-	private int AccountId;
-	private double AccountBalance;
-	private enum Status{ };
+	private int accountId;
+	private double accountBalance;
+	//private enum Status{ };
 	@ElementCollection
-	private List<Integer>TransactionHistory;
-	public int getAccountId() {
-		return AccountId;
-	}
-	public void setAccountId(int accountId) {
-		AccountId = accountId;
-	}
-	public double getAccountBalance() {
-		return AccountBalance;
-	}
-	public void setAccountBalance(double accountBalance) {
-		AccountBalance = accountBalance;
-	}
-	public List<Integer> getTransactionHistory() {
-		return TransactionHistory;
-	}
-	public void setTransactionHistory(List<Integer> transactionHistory) {
-		TransactionHistory = transactionHistory;
+	private List<Integer>transactionHistory;
+	@Override
+	public String toString() {
+		return "WalletAccount [accountId=" + accountId + ", accountBalance=" + accountBalance + ", transactionHistory="
+				+ transactionHistory + "]";
 	}
 	public WalletAccount(int accountId, double accountBalance, List<Integer> transactionHistory) {
 		super();
-		AccountId = accountId;
-		AccountBalance = accountBalance;
-		TransactionHistory = transactionHistory;
+		this.accountId = accountId;
+		this.accountBalance = accountBalance;
+		this.transactionHistory = transactionHistory;
 	}
+	public int getAccountId() {
+		return accountId;
+	}
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
+	}
+	public double getAccountBalance() {
+		return accountBalance;
+	}
+	public void setAccountBalance(double accountBalance) {
+		this.accountBalance = accountBalance;
+	}
+	public List<Integer> getTransactionHistory() {
+		return transactionHistory;
+	}
+	public void setTransactionHistory(List<Integer> transactionHistory) {
+		this.transactionHistory = transactionHistory;
+	}
+	
 	public WalletAccount() {
 		// TODO Auto-generated constructor stub
 	}
-	@Override
-	public String toString() {
-		return "WalletAccount [AccountId=" + AccountId + ", AccountBalance=" + AccountBalance + ", TransactionHistory="
-				+ TransactionHistory + "]";
-	}
-	 
-	
 
 }
