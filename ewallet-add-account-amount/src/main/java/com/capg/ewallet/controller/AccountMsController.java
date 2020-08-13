@@ -19,16 +19,16 @@ import com.capg.ewallet.service.AccountMsService;
 public class AccountMsController {
 	
 	@Autowired
-	AccountMsService accountService;
+	AccountMsService accountMsService;
 	
 	@PostMapping("/addaccount")
 	public WalletAccount addWalletAccount(@RequestBody WalletAccount walletAccount) throws AccountAlreadyExistsException, InvalidAmountException {
-		return accountService.addWalletAccount(walletAccount);
+		return accountMsService.addWalletAccount(walletAccount);
 	}
 	
 	@PostMapping("/addamount")
 	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException  {
-		return accountService.addAmount(walletAccount);
+		return accountMsService.addAmount(walletAccount);
 	}
 	
 	
