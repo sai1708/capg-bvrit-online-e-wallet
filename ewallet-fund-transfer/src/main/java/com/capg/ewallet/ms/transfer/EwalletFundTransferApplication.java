@@ -8,6 +8,7 @@ public class EwalletFundTransferApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EwalletFundTransferApplication.class, args);
+		
 	}
 
 }
