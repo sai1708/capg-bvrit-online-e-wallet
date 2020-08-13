@@ -1,4 +1,4 @@
-package com.capg.movie.model;
+package com.capg.ewallet.model;
 
 import java.util.List;
 
@@ -6,10 +6,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-
 @Entity
 public class WalletAccount {
-	
 	@Id
 	private int AccountId;
 	private double AccountBalance;

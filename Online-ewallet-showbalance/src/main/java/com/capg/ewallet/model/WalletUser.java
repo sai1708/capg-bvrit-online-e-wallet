@@ -1,4 +1,4 @@
-package com.capg.movie.model;
+package com.capg.ewallet.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
