@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.capg.ewallet</groupId>
-	<artifactId>ewallet-show-balance</artifactId>
+	<artifactId>ewallet-transactions-ms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ewallet-show-balance</name>
+	<name>ewallet-transactions-ms</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
