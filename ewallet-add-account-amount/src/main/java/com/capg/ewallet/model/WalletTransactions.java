@@ -2,16 +2,21 @@ package com.capg.ewallet.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
-
+@Entity
 public class WalletTransactions {
 	
-	
+	@Id
 	private int transactionId;
 	private String description;
 	@DateTimeFormat(pattern="yyyy/mm/ddThh:mm:ss")
 	private LocalDateTime dateOfTransaction;
+	private int fromAccountId;
+	private int toAccountId;
 	private double amount;
 	private double accountBalance;
 	public int getTransactionId() {
@@ -32,6 +37,18 @@ public class WalletTransactions {
 	public void setDateOfTransaction(LocalDateTime dateOfTransaction) {
 		this.dateOfTransaction = dateOfTransaction;
 	}
+	public int getFromAccountId() {
+		return fromAccountId;
+	}
+	public void setFromAccountId(int fromAccountId) {
+		this.fromAccountId = fromAccountId;
+	}
+	public int getToAccountId() {
+		return toAccountId;
+	}
+	public void setToAccountId(int toAccountId) {
+		this.toAccountId = toAccountId;
+	}
 	public double getAmount() {
 		return amount;
 	}
@@ -44,25 +61,27 @@ public class WalletTransactions {
 	public void setAccountBalance(double accountBalance) {
 		this.accountBalance = accountBalance;
 	}
-	public WalletTransactions(int transactionId, String description, LocalDateTime dateOfTransaction, double amount,
-			double accountBalance) {
+	@Override
+	public String toString() {
+		return "WalletTransactions [transactionId=" + transactionId + ", description=" + description
+				+ ", dateOfTransaction=" + dateOfTransaction + ", fromAccountId=" + fromAccountId + ", toAccountId="
+				+ toAccountId + ", amount=" + amount + ", accountBalance=" + accountBalance + "]";
+	}
+	public WalletTransactions(int transactionId, String description, LocalDateTime dateOfTransaction, int fromAccountId,
+			int toAccountId, double amount, double accountBalance) {
 		super();
 		this.transactionId = transactionId;
 		this.description = description;
 		this.dateOfTransaction = dateOfTransaction;
+		this.fromAccountId = fromAccountId;
+		this.toAccountId = toAccountId;
 		this.amount = amount;
 		this.accountBalance = accountBalance;
 	}
-	@Override
-	public String toString() {
-		return "WalletTransactions [transactionId=" + transactionId + ", description=" + description
-				+ ", dateOfTransaction=" + dateOfTransaction + ", amount=" + amount + ", accountBalance="
-				+ accountBalance + "]";
-	}
-	
 	public WalletTransactions() {
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 
 }

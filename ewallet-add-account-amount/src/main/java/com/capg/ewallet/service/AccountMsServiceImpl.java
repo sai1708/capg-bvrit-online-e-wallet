@@ -14,6 +14,7 @@ import com.capg.ewallet.model.TransferData;
 import com.capg.ewallet.model.WalletAccount;
 import com.capg.ewallet.model.WalletTransactions;
 import com.capg.ewallet.repo.AccountMsRepo;
+import com.capg.ewallet.repo.TransactionsRepo;
 //import com.capg.ewallet.repo.TransactionsRepo;
 
 @Service
@@ -21,6 +22,12 @@ public class AccountMsServiceImpl implements AccountMsService {
 	
 	@Autowired
 	private AccountMsRepo accountMsRepo;
+	@Autowired
+	private Random random;
+	
+	
+	@Autowired
+	TransactionsRepo transactionrepo;
 
 	public WalletAccount addWalletAccount(WalletAccount walletAccount) throws AccountAlreadyExistsException, InvalidAmountException{
 		// TODO Auto-generated method stub
@@ -74,22 +81,33 @@ public class AccountMsServiceImpl implements AccountMsService {
 //	}
 
 	@Override
-	public WalletAccount fundtransfer(TransferData transferData) {
+	public WalletAccount fundtransfer(WalletTransactions walletTransactions) {
 		// TODO Auto-generated method stub
-		WalletAccount fromAccount=accountMsRepo.getOne(transferData.getFromAccountId());
-		WalletAccount toAccount=accountMsRepo.getOne(transferData.getToAccountId());
+		
+		//int transactionId=transferData.getTransactionId();
+		String description=walletTransactions.getDescription();
+		WalletAccount fromAccount=accountMsRepo.getOne(walletTransactions.getFromAccountId());
+		WalletAccount toAccount=accountMsRepo.getOne(walletTransactions.getToAccountId());
 		double toBalance=toAccount.getAccountBalance();
 		double fromBalance=fromAccount.getAccountBalance();
-		double newBalance=fromBalance-transferData.getAmount();
-		double newBalanceToAccount=toBalance+transferData.getAmount();
+		double newBalance=fromBalance-walletTransactions.getAmount();
+		double newBalanceToAccount=toBalance+walletTransactions.getAmount();
 		fromAccount.setAccountBalance(newBalance);
 		toAccount.setAccountBalance(newBalanceToAccount);
-		
 		accountMsRepo.save(fromAccount);
 		accountMsRepo.save(toAccount);
-		toAccount.setStatus(transferData.getStatus());
+		walletTransactions.setTransactionId(random.nextInt(1000000));
+		walletTransactions.setDateOfTransaction(LocalDateTime.now());
 		
+		walletTransactions.setAccountBalance(newBalanceToAccount);
+		transactionrepo.save(walletTransactions);
 		return toAccount;
+	}
+
+	@Override
+	public List<WalletTransactions> getAllWalletTransactions() {
+		// TODO Auto-generated method stub
+		return transactionrepo.findAll();
 	}
 	
 //	@Autowired

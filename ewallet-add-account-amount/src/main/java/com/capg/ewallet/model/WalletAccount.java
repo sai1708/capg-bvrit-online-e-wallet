@@ -2,9 +2,11 @@ package com.capg.ewallet.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
 
 
 @Entity
@@ -41,6 +43,8 @@ public class WalletAccount {
 		this.status = status;
 	}
 
+	
+
 	public List<Integer> gettHistory() {
 		return tHistory;
 	}
@@ -48,6 +52,8 @@ public class WalletAccount {
 	public void settHistory(List<Integer> tHistory) {
 		this.tHistory = tHistory;
 	}
+	
+	
 
 	@Override
 	public String toString() {
@@ -62,6 +68,7 @@ public class WalletAccount {
 		this.status = status;
 		this.tHistory = tHistory;
 	}
+
 	public WalletAccount() {
 		// TODO Auto-generated constructor stub
 	}

@@ -1,12 +1,29 @@
 package com.capg.ewallet.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class TransferData {
-
+    @Id
+	private int transactionId;
+	private String description;
 	private int fromAccountId;
 	private int toAccountId;
 	private double amount;
 	private Status status;
+	public int getTransactionId() {
+		return transactionId;
+	}
+	public void setTransactionId(int transactionId) {
+		this.transactionId = transactionId;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public int getFromAccountId() {
 		return fromAccountId;
 	}
@@ -33,18 +50,20 @@ public class TransferData {
 	}
 	@Override
 	public String toString() {
-		return "TransferData [fromAccountId=" + fromAccountId + ", toAccountId=" + toAccountId + ", amount=" + amount
-				+ ", status=" + status + "]";
+		return "TransferData [transactionId=" + transactionId + ", description=" + description + ", fromAccountId="
+				+ fromAccountId + ", toAccountId=" + toAccountId + ", amount=" + amount + ", status=" + status + "]";
 	}
-	
-	public TransferData() {
-		// TODO Auto-generated constructor stub
-	}
-	public TransferData(int fromAccountId, int toAccountId, double amount, Status status) {
+	public TransferData(int transactionId, String description, int fromAccountId, int toAccountId, double amount,
+			Status status) {
 		super();
+		this.transactionId = transactionId;
+		this.description = description;
 		this.fromAccountId = fromAccountId;
 		this.toAccountId = toAccountId;
 		this.amount = amount;
 		this.status = status;
+	}
+	public TransferData() {
+		// TODO Auto-generated constructor stub
 	}
 }

@@ -1,5 +1,7 @@
 package com.capg.ewallet.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,12 +10,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.capg.ewallet.errors.AccountAlreadyExistsException;
 import com.capg.ewallet.errors.AccountNotFoundException;
 import com.capg.ewallet.errors.InvalidAmountException;
 import com.capg.ewallet.model.TransferData;
 import com.capg.ewallet.model.WalletAccount;
+import com.capg.ewallet.model.WalletTransactions;
 import com.capg.ewallet.service.AccountMsService;
 
 
@@ -48,10 +50,16 @@ public class AccountMsController {
 //	}
 	
 	@PostMapping("/transfer")
-	public WalletAccount fundTransfer(@RequestBody TransferData transferData) {
-		return accountMsService.fundtransfer(transferData);
+	public WalletAccount fundTransfer(@RequestBody WalletTransactions walletTransactions) {
+		return accountMsService.fundtransfer(walletTransactions);
 		
 		
+	}
+	
+	
+	@GetMapping("/WalletTransactions")
+	public List<WalletTransactions> getAllWalletTransactions(){
+		return accountMsService.getAllWalletTransactions();
 	}
 	
 

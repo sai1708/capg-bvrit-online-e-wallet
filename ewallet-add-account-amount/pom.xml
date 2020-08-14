@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.capg.ewallet</groupId>
-	<artifactId>ewallet-add-account-amount</artifactId>
+	<artifactId>ewallet-account-ms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ewallet-add-account-amount</name>
+	<name>ewallet-account-ms</name>
 	<description>online-e-wallet</description>
 
 	<properties>
