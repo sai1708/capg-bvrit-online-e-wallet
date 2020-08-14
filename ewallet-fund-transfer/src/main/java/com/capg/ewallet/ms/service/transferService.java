@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capg.ewallet.ms.dao.transferRepo;
-import com.capg.ewallet.ms.transfer.WalletAccount;
+import com.capg.ewallet.ms.model.WalletAccount;
+import com.capg.ewallet.ms.repo.transferRepo;
 @Service
 public class transferService {
 

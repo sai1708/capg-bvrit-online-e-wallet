@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.capg.ewallet.ms.model.WalletAccount;
 import com.capg.ewallet.ms.service.transferService;
-import com.capg.ewallet.ms.transfer.WalletAccount;
 
 @RestController
 

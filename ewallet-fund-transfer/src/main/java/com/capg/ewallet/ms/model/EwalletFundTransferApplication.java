@@ -1,4 +1,4 @@
-package com.capg.ewallet.ms.transfer;
+package com.capg.ewallet.ms.model;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
