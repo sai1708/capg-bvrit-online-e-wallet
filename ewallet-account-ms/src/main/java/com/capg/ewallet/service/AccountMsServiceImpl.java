@@ -1,18 +1,21 @@
 package com.capg.ewallet.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.capg.ewallet.errors.AccountAlreadyExistsException;
 import com.capg.ewallet.errors.AccountNotFoundException;
 import com.capg.ewallet.errors.InvalidAmountException;
 import com.capg.ewallet.model.TransferData;
 import com.capg.ewallet.model.WalletAccount;
-import com.capg.ewallet.model.WalletTransactions;
+import com.capg.ewallet.model.WalletTransaction;
+import com.capg.ewallet.model.WalletTransactionList;
 import com.capg.ewallet.repo.AccountMsRepo;
 import com.capg.ewallet.repo.TransactionsRepo;
 //import com.capg.ewallet.repo.TransactionsRepo;
@@ -24,6 +27,9 @@ public class AccountMsServiceImpl implements AccountMsService {
 	private AccountMsRepo accountMsRepo;
 	@Autowired
 	private Random random;
+	
+	@Autowired
+	RestTemplate rt;
 	
 	
 	@Autowired
@@ -63,6 +69,30 @@ public class AccountMsServiceImpl implements AccountMsService {
 	
 	}
 	
+	@Override
+	public WalletTransactionList getAllWalletTransaction() {
+		// TODO Auto-generated method stub
+		
+		WalletTransactionList walletTransaction=rt.getForObject("http://localhost:8500/ewallet/getalltransaction", WalletTransactionList.class);
+
+		return walletTransaction;
+		
+	}
+
+	@Override
+	public List<WalletAccount> getAllWalletAccount() {
+		// TODO Auto-generated method stub
+		return accountMsRepo.findAll();
+	}
+
+	@Override
+	public WalletAccount getOneWalletAccount(int accountId) {
+		// TODO Auto-generated method stub
+		return accountMsRepo.getOne(accountId);
+	}
+
+	
+	
 	
 //	@Override
 //	public WalletAccount fundtransfer(double amount, int fromAccountId, int toAccountId) {
@@ -80,35 +110,39 @@ public class AccountMsServiceImpl implements AccountMsService {
 //		return toAccount;
 //	}
 
-	@Override
-	public WalletAccount fundtransfer(WalletTransactions walletTransactions) {
-		// TODO Auto-generated method stub
-		
-		//int transactionId=transferData.getTransactionId();
-		String description=walletTransactions.getDescription();
-		WalletAccount fromAccount=accountMsRepo.getOne(walletTransactions.getFromAccountId());
-		WalletAccount toAccount=accountMsRepo.getOne(walletTransactions.getToAccountId());
-		double toBalance=toAccount.getAccountBalance();
-		double fromBalance=fromAccount.getAccountBalance();
-		double newBalance=fromBalance-walletTransactions.getAmount();
-		double newBalanceToAccount=toBalance+walletTransactions.getAmount();
-		fromAccount.setAccountBalance(newBalance);
-		toAccount.setAccountBalance(newBalanceToAccount);
-		accountMsRepo.save(fromAccount);
-		accountMsRepo.save(toAccount);
-		walletTransactions.setTransactionId(random.nextInt(1000000));
-		walletTransactions.setDateOfTransaction(LocalDateTime.now());
-		
-		walletTransactions.setAccountBalance(newBalanceToAccount);
-		transactionrepo.save(walletTransactions);
-		return toAccount;
-	}
+//	@Override
+//	public WalletAccount fundtransfer(WalletTransactions walletTransactions) {
+//		// TODO Auto-generated method stub
+//		
+//		//int transactionId=transferData.getTransactionId();
+//		String description=walletTransactions.getDescription();
+//		WalletAccount fromAccount=accountMsRepo.getOne(walletTransactions.getFromAccountId());
+//		WalletAccount toAccount=accountMsRepo.getOne(walletTransactions.getToAccountId());
+//		double toBalance=toAccount.getAccountBalance();
+//		double fromBalance=fromAccount.getAccountBalance();
+//		double newBalance=fromBalance-walletTransactions.getAmount();
+//		double newBalanceToAccount=toBalance+walletTransactions.getAmount();
+//		fromAccount.setAccountBalance(newBalance);
+//		toAccount.setAccountBalance(newBalanceToAccount);
+//		accountMsRepo.save(fromAccount);
+//		accountMsRepo.save(toAccount);
+//		walletTransactions.setTransactionId(random.nextInt(1000000));
+//		walletTransactions.setDateOfTransaction(LocalDateTime.now());
+//		
+//		walletTransactions.setAccountBalance(newBalanceToAccount);
+//		transactionrepo.save(walletTransactions);
+//		return toAccount;
+//	}
 
-	@Override
-	public List<WalletTransactions> getAllWalletTransactions() {
-		// TODO Auto-generated method stub
-		return transactionrepo.findAll();
-	}
+	
+
+//	@Override
+//	public WalletAccount updateWalletAccount(WalletAccount walletAccount) {
+//		// TODO Auto-generated method stub
+//		
+//		
+//		return accountMsRepo.save(walletAccount);
+//	}
 	
 //	@Autowired
 //	TransactionsRepo transactionrepo;

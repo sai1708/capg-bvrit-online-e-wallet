@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class WalletTransactions {
+public class WalletTransaction {
 	
 	@Id
 	private int transactionId;
@@ -67,7 +67,7 @@ public class WalletTransactions {
 				+ ", dateOfTransaction=" + dateOfTransaction + ", fromAccountId=" + fromAccountId + ", toAccountId="
 				+ toAccountId + ", amount=" + amount + ", accountBalance=" + accountBalance + "]";
 	}
-	public WalletTransactions(int transactionId, String description, LocalDateTime dateOfTransaction, int fromAccountId,
+	public WalletTransaction(int transactionId, String description, LocalDateTime dateOfTransaction, int fromAccountId,
 			int toAccountId, double amount, double accountBalance) {
 		super();
 		this.transactionId = transactionId;
@@ -78,7 +78,7 @@ public class WalletTransactions {
 		this.amount = amount;
 		this.accountBalance = accountBalance;
 	}
-	public WalletTransactions() {
+	public WalletTransaction() {
 		// TODO Auto-generated constructor stub
 	}
 	

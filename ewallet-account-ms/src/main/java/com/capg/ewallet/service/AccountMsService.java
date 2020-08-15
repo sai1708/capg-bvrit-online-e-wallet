@@ -7,7 +7,8 @@ import com.capg.ewallet.errors.AccountNotFoundException;
 import com.capg.ewallet.errors.InvalidAmountException;
 import com.capg.ewallet.model.TransferData;
 import com.capg.ewallet.model.WalletAccount;
-import com.capg.ewallet.model.WalletTransactions;
+import com.capg.ewallet.model.WalletTransaction;
+import com.capg.ewallet.model.WalletTransactionList;
 
 public interface AccountMsService {
 	
@@ -15,11 +16,21 @@ public interface AccountMsService {
 	
 	public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException;
 	
+	public List<WalletAccount> getAllWalletAccount();
+
+	public WalletAccount getOneWalletAccount(int accountId);
+	
+	public WalletTransactionList getAllWalletTransaction();
+	
 	//public WalletAccount fundtransfer(double amount, int fromAccountId, int toAccountId);
 
-	public WalletAccount fundtransfer(WalletTransactions walletTransactions);
+	//public WalletAccount fundtransfer(WalletTransactions walletTransactions);
 
-	public List<WalletTransactions> getAllWalletTransactions();
+	
+
+	
+	
+	//public WalletAccount updateWalletAccount(WalletAccount walletAccount);
 	
 
 	

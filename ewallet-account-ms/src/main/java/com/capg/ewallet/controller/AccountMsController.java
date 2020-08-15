@@ -15,12 +15,14 @@ import com.capg.ewallet.errors.AccountNotFoundException;
 import com.capg.ewallet.errors.InvalidAmountException;
 import com.capg.ewallet.model.TransferData;
 import com.capg.ewallet.model.WalletAccount;
-import com.capg.ewallet.model.WalletTransactions;
+import com.capg.ewallet.model.WalletTransaction;
+import com.capg.ewallet.model.WalletTransactionList;
+
 import com.capg.ewallet.service.AccountMsService;
 
 
 @RestController
-@RequestMapping("/add")
+@RequestMapping("/ewallet")
 public class AccountMsController {
 	
 	@Autowired
@@ -36,6 +38,33 @@ public class AccountMsController {
 		return accountMsService.addAmount(walletAccount);
 	}
 	
+	@GetMapping("/getallaccount")
+	public List<WalletAccount> getAllWalletAccount(){
+		return accountMsService.getAllWalletAccount();
+		
+		
+	}
+	
+	@GetMapping("/getaccount/id/{id}")
+	public WalletAccount getOneWalletAccount(@PathVariable ("id") int accountId){
+		return accountMsService.getOneWalletAccount(accountId);
+		
+		
+	}
+	
+	
+	@GetMapping("/getalltransaction")
+	public WalletTransactionList getAllWalletTransaction(){
+		return accountMsService.getAllWalletTransaction();
+	}
+	
+	
+//	@PutMapping("/update")
+//		public WalletAccount updateWalletAccount(@RequestBody WalletAccount walletAccount) {
+//		return accountMsService.updateWalletAccount(walletAccount);
+//	}
+	
+	
 //	@PutMapping("/account/id/{fromId}/id/{toId}/amount/{amount}")
 //	public WalletAccount fundTransfer(@PathVariable ("fromId") int fromAccountId,@PathVariable ("toId") int toAccountId, @PathVariable double amount) {
 //		return accountMsService.fundtransfer(amount, fromAccountId, toAccountId);
@@ -49,20 +78,20 @@ public class AccountMsController {
 //		
 //	}
 	
-	@PostMapping("/transfer")
-	public WalletAccount fundTransfer(@RequestBody WalletTransactions walletTransactions) {
-		return accountMsService.fundtransfer(walletTransactions);
-		
-		
-	}
+//	@PostMapping("/transfer")
+//	public WalletAccount fundTransfer(@RequestBody WalletTransactions walletTransactions) {
+//		return accountMsService.fundtransfer(walletTransactions);
+//		
+//		
+//	}
 	
 	
-	@GetMapping("/WalletTransactions")
-	public List<WalletTransactions> getAllWalletTransactions(){
-		return accountMsService.getAllWalletTransactions();
-	}
 	
-
+	
+//	public WalletAccount getAccountById(WalletAccount walletAccount ) {
+//		
+//	}
+//p
 	
 	}
    
