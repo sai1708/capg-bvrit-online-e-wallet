@@ -1,32 +1,36 @@
 package com.capg.ewallet.ms.controller;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.capg.ewallet.ms.model.WalletAccount;
-import com.capg.ewallet.ms.service.transferService;
+import com.capg.ewallet.ms.model.WalletUser;
+import com.capg.ewallet.ms.repo.CreateAccountRepo;
+
 
 @RestController
 
-public class FundTransferController {
+public class UserCreateController {
 	@Autowired
-	private transferService service;
+	private CreateAccountRepo repo;
 	@Autowired
-	WalletAccount walletaccount;
-	@RequestMapping("/transfer/{transactionId}{amount}")
+	WalletUser walletuser;
+	@RequestMapping("/createaccount/walletuser")
 		
-	public ModelAndView transfer(int transactionId,double amount) {
+	@PostMapping("/add")
+	public String transfer(WalletUser walletuser) {
 		
-	walletaccount=service.transferAmount(transactionId,amount);
-	ModelAndView mv=new ModelAndView("home.jsp");
-	mv.addObject(walletaccount);
-	return mv;
+	repo.save(walletuser);
+
+	
+			
+	return "created successfully";
 		
 			}
 }

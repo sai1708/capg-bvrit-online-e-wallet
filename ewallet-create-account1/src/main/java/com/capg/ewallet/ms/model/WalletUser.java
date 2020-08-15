@@ -2,8 +2,12 @@ package com.capg.ewallet.ms.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.stereotype.Component;
 
 @Entity
+@Table(name = "Onlinewallet")
 public class WalletUser {
 	
 	@Id
@@ -21,9 +25,14 @@ public class WalletUser {
 	public String getUserName() {
 		return userName;
 	}
+	public void setUserName(String userName)
+	{
+		this.userName=userName;
+	}
 	
 	public WalletUser() {
 		super();
+	
 		// TODO Auto-generated constructor stub
 	}
 	public String getPassword() {
@@ -54,7 +63,7 @@ public class WalletUser {
 	}
 	@Override
 	public String toString() {
-		return "WalletUser [userId=" + userId + ", userName=" + userName + ", password=" + password + ", phoneNumber="
+		return " WalletUser [userId=" + userId + ", userName=" + userName + ", password=" + password + ", phoneNumber="
 				+ phoneNumber + ", loginName=" + loginName + "]";
 	}
 }
