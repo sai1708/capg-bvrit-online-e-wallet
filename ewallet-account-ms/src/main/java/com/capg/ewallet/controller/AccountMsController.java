@@ -17,7 +17,7 @@ import com.capg.ewallet.model.TransferData;
 import com.capg.ewallet.model.WalletAccount;
 import com.capg.ewallet.model.WalletTransaction;
 import com.capg.ewallet.model.WalletTransactionList;
-
+import com.capg.ewallet.model.WalletUser;
 import com.capg.ewallet.service.AccountMsService;
 
 
@@ -33,10 +33,22 @@ public class AccountMsController {
 		return accountMsService.addWalletAccount(walletAccount);
 	}
 	
+//	@PostMapping("/addamount")
+//	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException  {
+//		return accountMsService.addAmount(walletAccount);
+//	}
+	
+//	@PostMapping("/addamount")
+///	public WalletUser addAmount(@RequestBody WalletAccount walletAccount) {
+//		return accountMsService.addAmount(walletAccount);
+//	}
+	
 	@PostMapping("/addamount")
-	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException  {
+	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount){
 		return accountMsService.addAmount(walletAccount);
 	}
+	
+
 	
 	@GetMapping("/getallaccount")
 	public List<WalletAccount> getAllWalletAccount(){

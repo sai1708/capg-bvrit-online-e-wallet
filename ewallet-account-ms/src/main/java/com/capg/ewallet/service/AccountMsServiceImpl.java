@@ -16,8 +16,10 @@ import com.capg.ewallet.model.TransferData;
 import com.capg.ewallet.model.WalletAccount;
 import com.capg.ewallet.model.WalletTransaction;
 import com.capg.ewallet.model.WalletTransactionList;
+import com.capg.ewallet.model.WalletUser;
 import com.capg.ewallet.repo.AccountMsRepo;
 import com.capg.ewallet.repo.TransactionsRepo;
+import com.capg.ewallet.repo.UserRepo;
 //import com.capg.ewallet.repo.TransactionsRepo;
 
 @Service
@@ -34,6 +36,9 @@ public class AccountMsServiceImpl implements AccountMsService {
 	
 	@Autowired
 	TransactionsRepo transactionrepo;
+	
+	@Autowired
+	UserRepo userRepo;
 
 	public WalletAccount addWalletAccount(WalletAccount walletAccount) throws AccountAlreadyExistsException, InvalidAmountException{
 		// TODO Auto-generated method stub
@@ -52,22 +57,59 @@ public class AccountMsServiceImpl implements AccountMsService {
 
 	}
 
-	public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
-		// TODO Auto-generated method stub
-		if(!accountMsRepo.existsById(walletAccount.getAccountId())) {
-			throw new AccountNotFoundException("Account with id: "+walletAccount.getAccountId() +" Does not Exist ");
-		}
-		
-        if(walletAccount.getAccountBalance()<0) {
-			throw new InvalidAmountException("Account Balance: "+walletAccount.getAccountBalance()+ "Invalid");	
-		}
-        
-		WalletAccount account=accountMsRepo.getOne(walletAccount.getAccountId());
-	    double newamount=account.getAccountBalance()+walletAccount.getAccountBalance();
-		account.setAccountBalance(newamount);
-		return accountMsRepo.save(account);	
+//	public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
+//		// TODO Auto-generated method stub
+//		if(!accountMsRepo.existsById(walletAccount.getAccountId())) {
+//			throw new AccountNotFoundException("Account with id: "+walletAccount.getAccountId() +" Does not Exist ");
+//		}
+//		
+//        if(walletAccount.getAccountBalance()<0) {
+//			throw new InvalidAmountException("Account Balance: "+walletAccount.getAccountBalance()+ "Invalid");	
+//		}
+//        
+//		WalletAccount account=accountMsRepo.getOne(walletAccount.getAccountId());
+//	    double newamount=account.getAccountBalance()+walletAccount.getAccountBalance();
+//		account.setAccountBalance(newamount);
+//		return accountMsRepo.save(account);	
+//	
+//	}
 	
+	
+//	public WalletUser addAmount(WalletAccount walletAccount) {
+//		
+//		WalletUser userAccount=rt.getForObject("http://localhost:8300/ewallet/getaccount/id/"+walletAccount.getAccountId(), WalletUser.class);
+//		
+//		WalletAccount walletAcc=userAccount.getWalletAccount();
+//		
+//		double balance= walletAcc.getAccountBalance();
+//		
+//		double newBalance=walletAccount.getAccountBalance()+balance;
+//		
+//		walletAcc.setAccountBalance(newBalance);
+//		userAccount.setWalletAccount(walletAcc);
+//		
+//	     userRepo.save(userAccount);
+//		
+//	     return userAccount;
+//	     
+//	}
+	public WalletAccount addAmount(WalletAccount walletAccount) {
+		
+		WalletAccount userAccount=rt.getForObject("http://localhost:8300/ewallet/getaccount/id/"+walletAccount.getAccountId(), WalletAccount.class);
+		
+		double newBalance=userAccount.getAccountBalance()+walletAccount.getAccountBalance();
+		
+		userAccount.setAccountBalance(newBalance);
+		
+		accountMsRepo.save(userAccount);
+		
+		return userAccount;
+		
 	}
+	
+	
+	
+	
 	
 	@Override
 	public WalletTransactionList getAllWalletTransaction() {
