@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.capg.ewallet.exception.AccountBalanceEmptyException;
 import com.capg.ewallet.model.TransferData;
 import com.capg.ewallet.model.WalletAccount;
 import com.capg.ewallet.model.WalletTransaction;
@@ -28,8 +29,7 @@ public class TransactionMsImpl implements TransactionMsInterface {
 	@Autowired
 	private AccountMsRepo accountMsRepo;
 	
-	
-	@Autowired
+		@Autowired
 	RestTemplate rt;
 	
 	
@@ -43,14 +43,23 @@ public class TransactionMsImpl implements TransactionMsInterface {
 	
 	@Override
 	public WalletAccount transferAmount(WalletTransaction walletTransaction) {
+		double fromAccountBalance;
+		double toAccountBalace;
 	
  WalletAccount fromAccount=rt.getForObject("http://localhost:8400/ewallet/getaccount/id/"+walletTransaction.getFromAccountId(),WalletAccount.class);
  WalletAccount toAccount=rt.getForObject("http://localhost:8400/ewallet/getaccount/id/"+walletTransaction.getToAccountId(),WalletAccount.class);
 	
+ if(fromAccount.getAccountBalance()==0.0)
+ {
+	 throw new AccountBalanceEmptyException("amount should not be empty");
+ }
+ else {
+	 
+    fromAccountBalance=fromAccount.getAccountBalance();
+ }
+    fromAccount.setAccountBalance(fromAccountBalance-walletTransaction.getAmount());
+    toAccountBalace=toAccount.getAccountBalance();
  
- double fromAccountBalance=fromAccount.getAccountBalance();
- fromAccount.setAccountBalance(fromAccountBalance-walletTransaction.getAmount());
- double toAccountBalace=toAccount.getAccountBalance();
  
  double newBalanceToAccount=toAccountBalace+walletTransaction.getAmount();
    toAccount.setAccountBalance(toAccountBalace+walletTransaction.getAmount());
