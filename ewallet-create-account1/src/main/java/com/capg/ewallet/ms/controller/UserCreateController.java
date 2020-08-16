@@ -22,18 +22,15 @@ import com.capg.ewallet.ms.service.WalletService;
 
 @RequestMapping("/wallet")
 public class UserCreateController {
-	  UserCreateController(){
-		  System.out.println("1");
-	}
+	
 	@Autowired
 	private WalletService service;
 
 	/*@RequestMapping("/createaccount/walletuser")*/
 		
 	@PostMapping("/add")
-	public WalletUser transfer(@RequestBody WalletUser walletuser) {
+	public WalletUser addAccount(@RequestBody WalletUser walletuser) {
 		
-		System.out.println("1");
 //repo.save(walletuser);
 return  service.addAccount(walletuser);
 		
