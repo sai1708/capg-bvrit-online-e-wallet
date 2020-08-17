@@ -9,7 +9,7 @@ import com.capg.ewallet.ms.repo.CreateAccountRepo;
 @Service
 public class WalletService {
 	@Autowired
-	private CreateAccountRepo repo;
+	 CreateAccountRepo repo;
 	public WalletUser addAccount(WalletUser walletuser) {
 		return repo.save(walletuser);
 		

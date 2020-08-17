@@ -2,12 +2,12 @@ package com.capg.ewallet.ms.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+//import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "Onlinewallet")
+
 public class WalletUser {
 	
 	@Id
@@ -31,7 +31,7 @@ public class WalletUser {
 	}
 	
 	public WalletUser() {
-		super();
+		
 	
 		// TODO Auto-generated constructor stub
 	}
