@@ -93,7 +93,15 @@ public class AccountMsServiceImpl implements AccountMsService {
 //	     return userAccount;
 //	     
 //	}
-	public WalletAccount addAmount(WalletAccount walletAccount) {
+	public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
+		
+		if(!accountMsRepo.existsById(walletAccount.getAccountId())) {
+			throw new AccountNotFoundException("Account with id: "+walletAccount.getAccountId() +" Does not Exist ");
+		}
+		
+        if(walletAccount.getAccountBalance()<0) {
+			throw new InvalidAmountException("Account Balance: "+walletAccount.getAccountBalance()+ "Invalid");	
+		}
 		
 		WalletAccount userAccount=rt.getForObject("http://localhost:8300/ewallet/getaccount/id/"+walletAccount.getAccountId(), WalletAccount.class);
 		

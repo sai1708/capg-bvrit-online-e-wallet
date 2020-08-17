@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.capg.ewallet.exception.AccountNotFoundException;
+import com.capg.ewallet.exception.InvalidAmountException;
 import com.capg.ewallet.model.TransferData;
 import com.capg.ewallet.model.WalletAccount;
 import com.capg.ewallet.model.WalletTransaction;
@@ -32,7 +34,7 @@ public class TransactionMsController {
 	}
 		
 	@PostMapping("/transfer")
-	public WalletAccount transferAmount(@RequestBody WalletTransaction walletTransaction) {
+	public WalletAccount transferAmount(@RequestBody WalletTransaction walletTransaction) throws AccountNotFoundException, InvalidAmountException {
 		return  transactionMs.transferAmount(walletTransaction);
 	}	
 	

@@ -44,7 +44,7 @@ public class AccountMsController {
 //	}
 	
 	@PostMapping("/addamount")
-	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount){
+	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
 		return accountMsService.addAmount(walletAccount);
 	}
 	

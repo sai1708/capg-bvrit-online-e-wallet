@@ -25,7 +25,7 @@ public interface AccountMsService {
 	
 	public WalletTransactionList getAllWalletTransaction();
 	
-	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount);
+	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException;
 	
 	//public WalletUser addAmount(WalletAccount walletAccount);
 	

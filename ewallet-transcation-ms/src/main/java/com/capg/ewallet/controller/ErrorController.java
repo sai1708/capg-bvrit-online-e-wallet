@@ -1,6 +1,7 @@
 package com.capg.ewallet.controller;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,15 +10,23 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.capg.ewallet.exception.AccountBalanceEmptyException;
-import com.capg.ewallet.exception.ErrorInfo;
+import com.capg.ewallet.exception.AccountNotFoundException;
+import com.capg.ewallet.exception.InvalidAmountException;
+import com.capg.ewallet.model.ErrorResponse;
 
 @RestControllerAdvice
 public class ErrorController {
-	@ResponseStatus(code=HttpStatus.BAD_GATEWAY)
-	@ExceptionHandler(value= {AccountBalanceEmptyException.class})
-	public ErrorInfo handleBalanceEmpty(AccountBalanceEmptyException ex , HttpServletRequest req)
-	{
-		return new ErrorInfo(LocalDateTime.now(), ex.getMessage(),req.getRequestURI().toString());
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(value = {InvalidAmountException.class})
+	public ErrorResponse handleInvalidAmountException(Exception ex,HttpServletRequest req) {
+		return new ErrorResponse(new Date(), ex.getMessage(), HttpStatus.BAD_REQUEST.getReasonPhrase(), HttpStatus.BAD_REQUEST.value(), req.getRequestURI());
+		
+	}
+	
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	@ExceptionHandler(value = {AccountNotFoundException.class})
+	public ErrorResponse handleAccountNotFoundException(Exception ex,HttpServletRequest req) {
+		return new ErrorResponse(new Date(), ex.getMessage(), HttpStatus.NOT_FOUND.getReasonPhrase(), HttpStatus.NOT_FOUND.value(), req.getRequestURI());
 	}
 }
