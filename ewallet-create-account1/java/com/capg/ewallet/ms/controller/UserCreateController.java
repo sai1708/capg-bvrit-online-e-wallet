@@ -27,7 +27,7 @@ public class UserCreateController {
     WalletService service;
 
 	@PostMapping("/add")
-	public WalletUser createAccount(@RequestBody WalletUser walletuser) {
+	public WalletUser createWalletAccount(@RequestBody WalletUser walletuser) {
 		
 	 return  service.addAccount(walletuser);
 		

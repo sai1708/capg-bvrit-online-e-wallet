@@ -1,4 +1,4 @@
-package com.capg.ewallet.ms.createaccount;
+package com.capg.ewallet.ms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
