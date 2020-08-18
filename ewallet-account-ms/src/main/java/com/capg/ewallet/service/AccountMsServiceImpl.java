@@ -56,6 +56,66 @@ public class AccountMsServiceImpl implements AccountMsService {
 		return accountMsRepo.save(walletAccount);
 
 	}
+	
+public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
+		
+		if(!accountMsRepo.existsById(walletAccount.getAccountId())) {
+			throw new AccountNotFoundException("Account with id: "+walletAccount.getAccountId() +" Does not Exist ");
+		}
+		
+        if(walletAccount.getAccountBalance()<0) {
+			throw new InvalidAmountException("Account Balance: "+walletAccount.getAccountBalance()+ "Invalid");	
+		}
+		
+		WalletAccount userAccount=rt.getForObject("http://localhost:8300/ewallet/getaccount/id/"+walletAccount.getAccountId(), WalletAccount.class);
+		
+		double newBalance=userAccount.getAccountBalance()+walletAccount.getAccountBalance();
+		
+		userAccount.setAccountBalance(newBalance);
+		
+		accountMsRepo.save(userAccount);
+		
+		WalletTransaction walletTransaction=new WalletTransaction();
+		
+		walletTransaction.setTransactionId(random.nextInt(1000000));
+		walletTransaction.setDateOfTransaction(LocalDateTime.now());
+		walletTransaction.setToAccountId(userAccount.getAccountId());
+		walletTransaction.setAccountBalance(newBalance);
+		walletTransaction.setDescription("Added");
+		walletTransaction.setAmount(walletAccount.getAccountBalance());
+		transactionrepo.save(walletTransaction);
+		
+		
+		return userAccount;
+		
+	}
+	
+	
+	
+	
+	
+	@Override
+	public WalletTransactionList getAllWalletTransaction() {
+		// TODO Auto-generated method stub
+		
+		WalletTransactionList walletTransaction=rt.getForObject("http://localhost:8500/ewallet/getalltransaction", WalletTransactionList.class);
+
+		return walletTransaction;
+		
+	}
+
+	@Override
+	public List<WalletAccount> getAllWalletAccount() {
+		// TODO Auto-generated method stub
+		return accountMsRepo.findAll();
+	}
+
+	@Override
+	public WalletAccount getOneWalletAccount(int accountId) {
+		// TODO Auto-generated method stub
+		return accountMsRepo.getOne(accountId);
+	}
+
 
 //	public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
 //		// TODO Auto-generated method stub
@@ -93,55 +153,7 @@ public class AccountMsServiceImpl implements AccountMsService {
 //	     return userAccount;
 //	     
 //	}
-	public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
-		
-		if(!accountMsRepo.existsById(walletAccount.getAccountId())) {
-			throw new AccountNotFoundException("Account with id: "+walletAccount.getAccountId() +" Does not Exist ");
-		}
-		
-        if(walletAccount.getAccountBalance()<0) {
-			throw new InvalidAmountException("Account Balance: "+walletAccount.getAccountBalance()+ "Invalid");	
-		}
-		
-		WalletAccount userAccount=rt.getForObject("http://localhost:8300/ewallet/getaccount/id/"+walletAccount.getAccountId(), WalletAccount.class);
-		
-		double newBalance=userAccount.getAccountBalance()+walletAccount.getAccountBalance();
-		
-		userAccount.setAccountBalance(newBalance);
-		
-		accountMsRepo.save(userAccount);
-		
-		return userAccount;
-		
-	}
-	
-	
-	
-	
-	
-	@Override
-	public WalletTransactionList getAllWalletTransaction() {
-		// TODO Auto-generated method stub
-		
-		WalletTransactionList walletTransaction=rt.getForObject("http://localhost:8500/ewallet/getalltransaction", WalletTransactionList.class);
 
-		return walletTransaction;
-		
-	}
-
-	@Override
-	public List<WalletAccount> getAllWalletAccount() {
-		// TODO Auto-generated method stub
-		return accountMsRepo.findAll();
-	}
-
-	@Override
-	public WalletAccount getOneWalletAccount(int accountId) {
-		// TODO Auto-generated method stub
-		return accountMsRepo.getOne(accountId);
-	}
-
-	
 	
 	
 //	@Override

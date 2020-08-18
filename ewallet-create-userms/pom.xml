@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.capg.ewallet</groupId>
-	<artifactId>ewallet-create-userms</artifactId>
+	<artifactId>ewallet-userms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ewallet-create-userms</name>
+	<name>ewallet-userms</name>
 	<description>online-e-wallet</description>
 
 	<properties>

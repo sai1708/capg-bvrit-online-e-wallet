@@ -17,7 +17,7 @@ public interface AccountMsService {
 	
 	public WalletAccount addWalletAccount(WalletAccount walletAccount) throws AccountAlreadyExistsException, InvalidAmountException;
 	
-	//public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException;
+	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException;
 	
 	public List<WalletAccount> getAllWalletAccount();
 
@@ -25,7 +25,8 @@ public interface AccountMsService {
 	
 	public WalletTransactionList getAllWalletTransaction();
 	
-	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException;
+	
+	//public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException;
 	
 	//public WalletUser addAmount(WalletAccount walletAccount);
 	

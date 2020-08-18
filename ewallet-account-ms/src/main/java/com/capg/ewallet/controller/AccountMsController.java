@@ -33,16 +33,6 @@ public class AccountMsController {
 		return accountMsService.addWalletAccount(walletAccount);
 	}
 	
-//	@PostMapping("/addamount")
-//	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException  {
-//		return accountMsService.addAmount(walletAccount);
-//	}
-	
-//	@PostMapping("/addamount")
-///	public WalletUser addAmount(@RequestBody WalletAccount walletAccount) {
-//		return accountMsService.addAmount(walletAccount);
-//	}
-	
 	@PostMapping("/addamount")
 	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
 		return accountMsService.addAmount(walletAccount);
@@ -70,6 +60,15 @@ public class AccountMsController {
 		return accountMsService.getAllWalletTransaction();
 	}
 	
+//	@PostMapping("/addamount")
+//	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException  {
+//		return accountMsService.addAmount(walletAccount);
+//	}
+	
+//	@PostMapping("/addamount")
+///	public WalletUser addAmount(@RequestBody WalletAccount walletAccount) {
+//		return accountMsService.addAmount(walletAccount);
+//	}
 	
 //	@PutMapping("/update")
 //		public WalletAccount updateWalletAccount(@RequestBody WalletAccount walletAccount) {
