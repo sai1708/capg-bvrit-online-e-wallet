@@ -34,10 +34,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-	<!--  	<dependency>
+		
+		
+  	<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
+  	
+	  	<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>  -->
+			<version>2.2.3.RELEASE</version>
+		</dependency>  
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
