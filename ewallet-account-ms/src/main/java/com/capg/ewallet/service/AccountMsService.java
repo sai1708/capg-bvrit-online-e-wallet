@@ -19,7 +19,7 @@ public interface AccountMsService {
 	
 	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException;
 	
-	public List<WalletAccount> getAllWalletAccount();
+	public List<WalletAccount> getAllWalletAccount() throws AccountNotFoundException;
 
 	public WalletAccount getOneWalletAccount(int accountId);
 	

@@ -19,10 +19,12 @@ import com.capg.ewallet.model.WalletTransaction;
 import com.capg.ewallet.model.WalletTransactionList;
 import com.capg.ewallet.model.WalletUser;
 import com.capg.ewallet.service.AccountMsService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 
 @RestController
 @RequestMapping("/ewallet")
+
 public class AccountMsController {
 	
 	@Autowired
@@ -34,6 +36,7 @@ public class AccountMsController {
 	}
 	
 	@PostMapping("/addamount")
+
 	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
 		return accountMsService.addAmount(walletAccount);
 	}
@@ -41,10 +44,15 @@ public class AccountMsController {
 
 	
 	@GetMapping("/getallaccount")
-	public List<WalletAccount> getAllWalletAccount(){
+	@HystrixCommand(fallbackMethod = "getAllFallBack")
+	public List<WalletAccount> getAllWalletAccount() throws AccountNotFoundException{
 		return accountMsService.getAllWalletAccount();
 		
 		
+	}
+	public List<WalletAccount> getAllFallBack()
+	{
+		return null;
 	}
 	
 	@GetMapping("/getaccount/id/{id}")

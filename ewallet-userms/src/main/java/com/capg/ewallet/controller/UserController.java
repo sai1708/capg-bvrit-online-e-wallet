@@ -15,7 +15,7 @@ import com.capg.ewallet.model.WalletUser;
 import com.capg.ewallet.service.UserService;
 
 @RestController
-@RequestMapping("/ewallet")
+@RequestMapping("/user")
 public class UserController {
 	
 	@Autowired 

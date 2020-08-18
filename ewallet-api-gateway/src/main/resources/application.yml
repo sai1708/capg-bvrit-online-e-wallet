@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: ewallet-gateway-server
+server:  
+  port: 9999
+
+
+zuul:
+  routes:  
+    transcation-ms:
+      path: /transaction/**
+      service-id: ewallet-transcation-ms
+      strip-prefix: false
+      
+    account-ms:
+      path: /ewallet/**
+      service-id: ewallet-account-ms
+      strip-prefix: false
+      
+    user-ms:
+      path: /user/**
+      service-id: ewallet-userms
+      strip-prefix: false

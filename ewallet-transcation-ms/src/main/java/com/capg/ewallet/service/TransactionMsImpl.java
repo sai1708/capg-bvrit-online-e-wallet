@@ -58,8 +58,8 @@ public class TransactionMsImpl implements TransactionMsInterface {
 			
 		}
 	
- WalletAccount fromAccount=rt.getForObject("http://localhost:8400/ewallet/getaccount/id/"+walletTransaction.getFromAccountId(),WalletAccount.class);
- WalletAccount toAccount=rt.getForObject("http://localhost:8400/ewallet/getaccount/id/"+walletTransaction.getToAccountId(),WalletAccount.class);
+ WalletAccount fromAccount=rt.getForObject("http://EWALLET-ACCOUNT-MS/ewallet/getaccount/id/"+walletTransaction.getFromAccountId(),WalletAccount.class);
+ WalletAccount toAccount=rt.getForObject("http://EWALLET-ACCOUNT-MS/ewallet/getaccount/id/"+walletTransaction.getToAccountId(),WalletAccount.class);
 	
  
     fromAccountBalance=fromAccount.getAccountBalance();

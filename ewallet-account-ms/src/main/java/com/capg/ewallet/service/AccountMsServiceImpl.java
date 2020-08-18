@@ -67,7 +67,7 @@ public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFou
 			throw new InvalidAmountException("Account Balance: "+walletAccount.getAccountBalance()+ "Invalid");	
 		}
 		
-		WalletAccount userAccount=rt.getForObject("http://localhost:8300/ewallet/getaccount/id/"+walletAccount.getAccountId(), WalletAccount.class);
+		WalletAccount userAccount=rt.getForObject("http://EWALLET-USERMS/user/getaccount/id/"+walletAccount.getAccountId(), WalletAccount.class);
 		
 		double newBalance=userAccount.getAccountBalance()+walletAccount.getAccountBalance();
 		
@@ -98,15 +98,19 @@ public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFou
 	public WalletTransactionList getAllWalletTransaction() {
 		// TODO Auto-generated method stub
 		
-		WalletTransactionList walletTransaction=rt.getForObject("http://localhost:8500/ewallet/getalltransaction", WalletTransactionList.class);
+		WalletTransactionList walletTransaction=rt.getForObject("http://EWALLET-TRANSCATION-MS/transaction/getalltransaction", WalletTransactionList.class);
 
 		return walletTransaction;
 		
 	}
 
 	@Override
-	public List<WalletAccount> getAllWalletAccount() {
+	public List<WalletAccount> getAllWalletAccount() throws AccountNotFoundException {
 		// TODO Auto-generated method stub
+		if(accountMsRepo.findAll().isEmpty())
+		{
+			throw new AccountNotFoundException("None are available");
+		}
 		return accountMsRepo.findAll();
 	}
 

@@ -1,3 +1,4 @@
+
 package com.capg.ewallet.controller;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import com.capg.ewallet.model.WalletTransactionList;
 import com.capg.ewallet.service.TransactionMsInterface;
 
 @RestController
-@RequestMapping("/ewallet")
+@RequestMapping("/transaction")
 public class TransactionMsController {
 	
 	@Autowired
