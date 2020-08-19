@@ -21,7 +21,7 @@ public interface AccountMsService {
 	
 	public List<WalletAccount> getAllWalletAccount() throws AccountNotFoundException;
 
-	public WalletAccount getOneWalletAccount(int accountId);
+	public WalletAccount getOneWalletAccount(int accountId) throws AccountNotFoundException;
 	
 	public WalletTransactionList getAllWalletTransaction();
 	

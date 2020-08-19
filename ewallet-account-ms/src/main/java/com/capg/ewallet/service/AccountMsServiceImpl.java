@@ -37,6 +37,7 @@ public class AccountMsServiceImpl implements AccountMsService {
 	@Autowired
 	TransactionsRepo transactionrepo;
 	
+	
 	@Autowired
 	UserRepo userRepo;
 
@@ -67,7 +68,7 @@ public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFou
 			throw new InvalidAmountException("Account Balance: "+walletAccount.getAccountBalance()+ "Invalid");	
 		}
 		
-		WalletAccount userAccount=rt.getForObject("http://EWALLET-USERMS/user/getaccount/id/"+walletAccount.getAccountId(), WalletAccount.class);
+		WalletAccount userAccount=rt.getForObject("http://EWALLET-USERMS/users/public/getaccount/id/"+walletAccount.getAccountId(), WalletAccount.class);
 		
 		double newBalance=userAccount.getAccountBalance()+walletAccount.getAccountBalance();
 		
@@ -115,8 +116,11 @@ public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFou
 	}
 
 	@Override
-	public WalletAccount getOneWalletAccount(int accountId) {
+	public WalletAccount getOneWalletAccount(int accountId) throws AccountNotFoundException {
 		// TODO Auto-generated method stub
+		if(!accountMsRepo.existsById(accountId)) {
+			throw new AccountNotFoundException("Account Not Found");
+		}
 		return accountMsRepo.getOne(accountId);
 	}
 

@@ -56,7 +56,7 @@ public class AccountMsController {
 	}
 	
 	@GetMapping("/getaccount/id/{id}")
-	public WalletAccount getOneWalletAccount(@PathVariable ("id") int accountId){
+	public WalletAccount getOneWalletAccount(@PathVariable ("id") int accountId) throws AccountNotFoundException{
 		return accountMsService.getOneWalletAccount(accountId);
 		
 		

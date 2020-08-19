@@ -49,7 +49,7 @@ public class TransactionMsImpl implements TransactionMsInterface {
 		
 		if(!accountMsRepo.existsById(walletTransaction.getFromAccountId()) || !accountMsRepo.existsById(walletTransaction.getToAccountId()) )
 		{
-			throw new AccountNotFoundException("Accont Does not Found");
+			throw new AccountNotFoundException("Account Does not Found");
 		}
 		
       if(walletTransaction.getAccountBalance()<0) {
