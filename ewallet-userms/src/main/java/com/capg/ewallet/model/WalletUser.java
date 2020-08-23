@@ -14,7 +14,7 @@ public class WalletUser {
 	private String userName;
 	private String password;
 	private String phoneNumber;
-	private String loginName;;
+	private String loginName;
 	@OneToOne(cascade={CascadeType.ALL})
 	WalletAccount walletAccount;
 	public int getUserId() {

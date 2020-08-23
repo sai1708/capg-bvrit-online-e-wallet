@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 
@@ -16,8 +17,8 @@ public class WalletAccount {
 	private int accountId;
 	private double accountBalance;
 	private Status status;
-	@ElementCollection
-	private List<Integer>tHistory;
+	@OneToMany
+	private List<WalletTransaction>tHistory;
 
 	public int getAccountId() {
 		return accountId;
@@ -45,15 +46,14 @@ public class WalletAccount {
 
 	
 
-	public List<Integer> gettHistory() {
-		return tHistory;
-	}
-
-	public void settHistory(List<Integer> tHistory) {
+	
+	public WalletAccount(int accountId, double accountBalance, Status status, List<WalletTransaction> tHistory) {
+		super();
+		this.accountId = accountId;
+		this.accountBalance = accountBalance;
+		this.status = status;
 		this.tHistory = tHistory;
 	}
-	
-	
 
 	@Override
 	public String toString() {
@@ -61,11 +61,11 @@ public class WalletAccount {
 				+ ", tHistory=" + tHistory + "]";
 	}
 
-	public WalletAccount(int accountId, double accountBalance, Status status, List<Integer> tHistory) {
-		super();
-		this.accountId = accountId;
-		this.accountBalance = accountBalance;
-		this.status = status;
+	public List<WalletTransaction> gettHistory() {
+		return tHistory;
+	}
+
+	public void settHistory(List<WalletTransaction> tHistory) {
 		this.tHistory = tHistory;
 	}
 

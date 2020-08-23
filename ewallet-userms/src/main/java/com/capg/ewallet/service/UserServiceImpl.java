@@ -1,3 +1,4 @@
+
 package com.capg.ewallet.service;
 
 import java.util.List;
@@ -56,6 +57,12 @@ public class UserServiceImpl implements UserService{
 			throw new UserNotFoundException("Invalid UserID");
 		}
 		return userRepo.findByUserIdAndPassword(userId, password);
+	}
+
+	@Override
+	public void deleteWalletUser(int userId) {
+		// TODO Auto-generated method stub
+	    userRepo.deleteById(userId);;
 	}
 
 }

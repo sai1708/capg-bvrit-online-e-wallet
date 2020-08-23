@@ -3,6 +3,7 @@ package com.capg.ewallet.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 
 @RestController
+@CrossOrigin(origins= {"http://localhost:4200"})
 @RequestMapping("/ewallet")
 
 public class AccountMsController {
@@ -30,44 +32,56 @@ public class AccountMsController {
 	@Autowired
 	AccountMsService accountMsService;
 	
-	@PostMapping("/addaccount")
+	@PostMapping("/public/addaccount")
 	public WalletAccount addWalletAccount(@RequestBody WalletAccount walletAccount) throws AccountAlreadyExistsException, InvalidAmountException {
 		return accountMsService.addWalletAccount(walletAccount);
 	}
 	
-	@PostMapping("/addamount")
+	@PostMapping("/public/addamount")
 
 	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
 		return accountMsService.addAmount(walletAccount);
 	}
 	
+	
 
 	
-	@GetMapping("/getallaccount")
+	@GetMapping("/public/getallaccount")
 	@HystrixCommand(fallbackMethod = "getAllFallBack")
 	public List<WalletAccount> getAllWalletAccount() throws AccountNotFoundException{
 		return accountMsService.getAllWalletAccount();
 		
 		
 	}
-	public List<WalletAccount> getAllFallBack()
-	{
+	public List<WalletAccount> getAllFallBack(){
+	
 		return null;
 	}
 	
-	@GetMapping("/getaccount/id/{id}")
+	@GetMapping("/public/getaccount/id/{id}")
+	//@HystrixCommand(fallbackMethod = "getOneWalletAccountFallBack")
 	public WalletAccount getOneWalletAccount(@PathVariable ("id") int accountId) throws AccountNotFoundException{
 		return accountMsService.getOneWalletAccount(accountId);
 		
 		
 	}
+//	
+//	public WalletAccount getOneWalletAccountFallBack(){
+//		return new WalletAccount();
+//	}
+//	
 	
 	
-	@GetMapping("/getalltransaction")
+	@GetMapping("/public/getalltransactions")
 	public WalletTransactionList getAllWalletTransaction(){
 		return accountMsService.getAllWalletTransaction();
 	}
-	
+//	
+//	@GetMapping("/public/getonetransaction/id/{id}")
+//	public WalletTransaction getOneWalletTransaction(@PathVariable ("id") int accountId) {
+//		return accountMsService.getOneWalletTransaction(accountId);
+//	}
+//	
 //	@PostMapping("/addamount")
 //	public WalletAccount addAmount(@RequestBody WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException  {
 //		return accountMsService.addAmount(walletAccount);

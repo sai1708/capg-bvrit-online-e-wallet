@@ -7,6 +7,7 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import com.capg.ewallet.errors.AccountAlreadyExistsException;
@@ -40,7 +41,9 @@ public class AccountMsServiceImpl implements AccountMsService {
 	
 	@Autowired
 	UserRepo userRepo;
-
+	
+ 
+	@Transactional
 	public WalletAccount addWalletAccount(WalletAccount walletAccount) throws AccountAlreadyExistsException, InvalidAmountException{
 		// TODO Auto-generated method stub
 		
@@ -58,6 +61,7 @@ public class AccountMsServiceImpl implements AccountMsService {
 
 	}
 	
+@Transactional
 public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
 		
 		if(!accountMsRepo.existsById(walletAccount.getAccountId())) {
@@ -67,6 +71,8 @@ public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFou
         if(walletAccount.getAccountBalance()<0) {
 			throw new InvalidAmountException("Account Balance: "+walletAccount.getAccountBalance()+ "Invalid");	
 		}
+        
+  
 		
 		WalletAccount userAccount=rt.getForObject("http://EWALLET-USERMS/users/public/getaccount/id/"+walletAccount.getAccountId(), WalletAccount.class);
 		
@@ -76,16 +82,32 @@ public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFou
 		
 		accountMsRepo.save(userAccount);
 		
-		WalletTransaction walletTransaction=new WalletTransaction();
+		WalletTransaction walletTransaction= new WalletTransaction();
 		
-		walletTransaction.setTransactionId(random.nextInt(1000000));
-		walletTransaction.setDateOfTransaction(LocalDateTime.now());
+		 walletTransaction.setTransactionId(random.nextInt(1000000));
+	     walletTransaction.setDateOfTransaction(LocalDateTime.now());
+	     walletTransaction.setFromAccountId(0);
 		walletTransaction.setToAccountId(userAccount.getAccountId());
 		walletTransaction.setAccountBalance(newBalance);
 		walletTransaction.setDescription("Added");
 		walletTransaction.setAmount(walletAccount.getAccountBalance());
+		//transactionrepo.save(walletTransaction);
+		//System.out.println(walletTransaction);
+	//	System.out.println(userAccount);
+		if(userAccount.gettHistory()==null) {
+			List<WalletTransaction>tlist=new ArrayList<>();
+			tlist.add(walletTransaction);
+			userAccount.settHistory(tlist);
+			
+		}
+		else {
+		userAccount.gettHistory().add(walletTransaction);
+
+		}
 		transactionrepo.save(walletTransaction);
 		
+		//System.out.println(userAccount);
+		//accountMsRepo.save(userAccount);
 		
 		return userAccount;
 		
@@ -99,7 +121,7 @@ public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFou
 	public WalletTransactionList getAllWalletTransaction() {
 		// TODO Auto-generated method stub
 		
-		WalletTransactionList walletTransaction=rt.getForObject("http://EWALLET-TRANSCATION-MS/transaction/getalltransaction", WalletTransactionList.class);
+		WalletTransactionList walletTransaction=rt.getForObject("http://EWALLET-TRANSCATION-MS/transaction/public/getalltransaction", WalletTransactionList.class);
 
 		return walletTransaction;
 		
@@ -123,6 +145,12 @@ public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFou
 		}
 		return accountMsRepo.getOne(accountId);
 	}
+
+//	@Override
+//	public WalletTransaction getOneWalletTransaction(int accountId) {
+//		// TODO Auto-generated method stub
+//		return transactionrepo.getOne(accountId);
+//	}
 
 
 //	public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {

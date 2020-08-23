@@ -3,9 +3,11 @@ package com.capg.ewallet.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 
@@ -17,8 +19,10 @@ public class WalletAccount {
 	private int accountId;
 	private double accountBalance;
 	private Status status;
-	@ElementCollection
-	private List<Integer>tHistory;
+	
+	@OneToMany
+	//@Column(columnDefinition="tHistory")
+	private List<WalletTransaction>tHistory;
 
 	public int getAccountId() {
 		return accountId;
@@ -44,17 +48,13 @@ public class WalletAccount {
 		this.status = status;
 	}
 
-	
-
-	public List<Integer> gettHistory() {
+	public List<WalletTransaction> gettHistory() {
 		return tHistory;
 	}
 
-	public void settHistory(List<Integer> tHistory) {
+	public void settHistory(List<WalletTransaction> tHistory) {
 		this.tHistory = tHistory;
 	}
-	
-	
 
 	@Override
 	public String toString() {
@@ -62,13 +62,15 @@ public class WalletAccount {
 				+ ", tHistory=" + tHistory + "]";
 	}
 
-	public WalletAccount(int accountId, double accountBalance, Status status, List<Integer> tHistory) {
+	public WalletAccount(int accountId, double accountBalance, Status status, List<WalletTransaction> tHistory) {
 		super();
 		this.accountId = accountId;
 		this.accountBalance = accountBalance;
 		this.status = status;
 		this.tHistory = tHistory;
 	}
+
+	
 
 	public WalletAccount() {
 		// TODO Auto-generated constructor stub

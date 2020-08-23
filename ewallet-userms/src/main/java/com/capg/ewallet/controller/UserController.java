@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.tomcat.jni.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,11 @@ public class UserController {
 	public WalletUser createWalletUser(@RequestBody WalletUser walletUser) throws UserAlreadyExistsException {
 		return userService.createWalletUser(walletUser);
 		
+	}
+	
+	@DeleteMapping("/public/deleteaccount/id/{id}")
+	public void deleteWalletUser(@PathVariable ("id") int userId) {
+		 userService.deleteWalletUser(userId);
 	}
 	
 	@GetMapping("/public/getalluser")

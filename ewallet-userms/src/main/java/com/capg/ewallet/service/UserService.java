@@ -17,6 +17,8 @@ public interface UserService {
 	public WalletAccount getOneAccount(int accountId) throws AccountNotFoundException;
 
 	public WalletUser getUser(int userId, String password) throws UserNotFoundException;
+
+	public void deleteWalletUser(int userId);
 	
 	
 

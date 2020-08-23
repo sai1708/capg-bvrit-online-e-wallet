@@ -1,10 +1,10 @@
-package com.capg.movie;
+package com.capg.ewallet;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EwalletAddAmountApplicationTests {
+class EwalletCreateUsermsApplicationTests {
 
 	@Test
 	void contextLoads() {

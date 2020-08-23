@@ -4,6 +4,7 @@ package com.capg.ewallet.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ import com.capg.ewallet.model.WalletTransactionList;
 import com.capg.ewallet.service.TransactionMsInterface;
 
 @RestController
+@CrossOrigin(origins= {"http://localhost:4200"})
 @RequestMapping("/transaction")
 public class TransactionMsController {
 	
@@ -29,12 +31,12 @@ public class TransactionMsController {
 	@Autowired
 	TransactionMsInterface transactionMs;
 	
-	@GetMapping("/getaccount")
+	@GetMapping("/public/getaccount")
 	public WalletAccount getAllWalletAccount(){
 		return transactionMs.getAllWalletAccount();
 	}
 		
-	@PostMapping("/transfer")
+	@PostMapping("/public/transfer")
 	public WalletAccount transferAmount(@RequestBody WalletTransaction walletTransaction) throws AccountNotFoundException, InvalidAmountException {
 		return  transactionMs.transferAmount(walletTransaction);
 	}	
@@ -48,7 +50,7 @@ public class TransactionMsController {
 //		
 //	}
 	
-	@GetMapping("/getalltransaction")
+	@GetMapping("/public/getalltransaction")
 	public WalletTransactionList getAllWalletTransaction(){
 		return transactionMs.getAllWalletTransaction();
 	}

@@ -8,6 +8,7 @@ import com.capg.ewallet.model.WalletTransaction;
 
 
 public interface TransactionsRepo extends JpaRepository<WalletTransaction, Integer>{
+	 
 	
 	
 

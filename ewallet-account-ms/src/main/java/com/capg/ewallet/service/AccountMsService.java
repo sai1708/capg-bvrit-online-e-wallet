@@ -24,6 +24,8 @@ public interface AccountMsService {
 	public WalletAccount getOneWalletAccount(int accountId) throws AccountNotFoundException;
 	
 	public WalletTransactionList getAllWalletTransaction();
+
+	//public WalletTransaction getOneWalletTransaction(int accountId);
 	
 	
 	//public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException;
