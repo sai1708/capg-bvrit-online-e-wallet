@@ -21,7 +21,7 @@ import com.capg.ewallet.model.WalletTransactionList;
 import com.capg.ewallet.service.TransactionMsInterface;
 
 @RestController
-@CrossOrigin(origins= {"http://localhost:4200"})
+
 @RequestMapping("/transaction")
 public class TransactionMsController {
 	
@@ -36,7 +36,7 @@ public class TransactionMsController {
 		return transactionMs.getAllWalletAccount();
 	}
 		
-	@PostMapping("/public/transfer")
+	@PostMapping("/users/transfer")
 	public WalletAccount transferAmount(@RequestBody WalletTransaction walletTransaction) throws AccountNotFoundException, InvalidAmountException {
 		return  transactionMs.transferAmount(walletTransaction);
 	}	

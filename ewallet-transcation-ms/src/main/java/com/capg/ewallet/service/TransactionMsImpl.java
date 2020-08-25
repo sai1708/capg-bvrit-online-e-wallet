@@ -59,8 +59,8 @@ public class TransactionMsImpl implements TransactionMsInterface {
 			
 		}
 	
- WalletAccount fromAccount=rt.getForObject("http://EWALLET-ACCOUNT-MS/ewallet/public/getaccount/id/"+walletTransaction.getFromAccountId(),WalletAccount.class);
- WalletAccount toAccount=rt.getForObject("http://EWALLET-ACCOUNT-MS/ewallet/public/getaccount/id/"+walletTransaction.getToAccountId(),WalletAccount.class);
+ WalletAccount fromAccount=rt.getForObject("http://EWALLET-ACCOUNT-MS/ewallet/users/getaccount/id/"+walletTransaction.getFromAccountId(),WalletAccount.class);
+ WalletAccount toAccount=rt.getForObject("http://EWALLET-ACCOUNT-MS/ewallet/users/getaccount/id/"+walletTransaction.getToAccountId(),WalletAccount.class);
 	
  
     fromAccountBalance=fromAccount.getAccountBalance();
@@ -72,8 +72,8 @@ public class TransactionMsImpl implements TransactionMsInterface {
    double newBalanceToAccount=toAccountBalace+walletTransaction.getAmount();
    toAccount.setAccountBalance(toAccountBalace+walletTransaction.getAmount());
  
-      accountMsRepo.save(fromAccount);
-      accountMsRepo.save(toAccount);
+    //  accountMsRepo.save(fromAccount);
+    //  accountMsRepo.save(toAccount);
 
 
 		walletTransaction.setTransactionId(random.nextInt(1000000));
@@ -89,6 +89,9 @@ public class TransactionMsImpl implements TransactionMsInterface {
 		else {
 		toAccount.gettHistory().add(walletTransaction);
 		}
+
+	    accountMsRepo.save(fromAccount);
+		accountMsRepo.save(toAccount);
 		return toAccount;
 		
 	}

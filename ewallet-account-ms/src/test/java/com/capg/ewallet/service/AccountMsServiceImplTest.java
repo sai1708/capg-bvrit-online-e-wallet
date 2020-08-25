@@ -37,8 +37,8 @@ class AccountMsServiceImplTest {
 	public void init()
 	{
 		List<WalletTransaction> tests= new ArrayList();
-		tests.add(new WalletTransaction(547835,"transfered",LocalDateTime.now(),200,205,500,2500));
-		 wa=new WalletAccount(200,500.0,null,tests);
+		tests.add(new WalletTransaction(547835,"transfered",LocalDateTime.now(),1001015,1001013,500,2000));
+		 wa=new WalletAccount(1001015,500.0,null,tests);
 		
 	}
 
@@ -46,22 +46,22 @@ class AccountMsServiceImplTest {
 	@Test
 	void testAddAmount() throws AccountNotFoundException, InvalidAmountException {
 		
-
-		List<WalletTransaction> tests= new ArrayList();
-		tests.add(new WalletTransaction(547835,"transfered",LocalDateTime.now(),200,205,500,2500));
-		WalletAccount account=new WalletAccount(200,500.0,null,tests);
-		
+//
+//		List<WalletTransaction> tests= new ArrayList();
+//		tests.add(new WalletTransaction(879933,"transfered",LocalDateTime.now(),200,205,500,2000));
+//		WalletAccount account=new WalletAccount(200,500.0,null,tests);
+//		
 		WalletAccount addamount=accountMsService.addAmount(wa);
 		
-		assertEquals(13400,addamount.getAccountBalance());
+		assertEquals(1000,addamount.getAccountBalance());
 		
 	}
 	@Test
 	public void testInvalidamountException() {
 		
 		List<WalletTransaction> tests= new ArrayList();
-		tests.add(new WalletTransaction(547835,"transfered",LocalDateTime.now(),200,205,500,2500));
-		WalletAccount account=new WalletAccount(200,-500.0,null,tests);
+		tests.add(new WalletTransaction(879933,"transfered",LocalDateTime.now(),1001015,1001013,500,2000));
+		WalletAccount account=new WalletAccount(1001015,-500.0,null,tests);
 		
 		assertThrows(InvalidAmountException.class,()->{
 			accountMsService.addAmount(account);
@@ -72,7 +72,7 @@ class AccountMsServiceImplTest {
 	public void testAccountNotFoundException() {
 		
 		List<WalletTransaction> tests= new ArrayList();
-		tests.add(new WalletTransaction(547835,"transfered",LocalDateTime.now(),200,205,500,2500));
+		tests.add(new WalletTransaction(547835,"transfered",LocalDateTime.now(),1001015,205,500,2500));
 		WalletAccount account=new WalletAccount(20000,500.0,null,tests);
 		
 		assertThrows(AccountNotFoundException.class,()->{

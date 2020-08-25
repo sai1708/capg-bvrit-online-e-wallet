@@ -16,7 +16,6 @@ public class WalletTransaction {
 	@DateTimeFormat(pattern="yyyy/mm/ddThh:mm:ss")
 	private LocalDateTime dateOfTransaction;
 	private int fromAccountId;
-	
 	private int toAccountId;
 	private double amount;
 	private double accountBalance;

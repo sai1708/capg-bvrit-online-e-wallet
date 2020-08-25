@@ -26,22 +26,30 @@ import com.capg.ewallet.repo.UserRepo;
 @Service
 public class AccountMsServiceImpl implements AccountMsService {
 	
+	// Tells the application context to inject an instance of AccountMsRepo here
 	@Autowired
 	private AccountMsRepo accountMsRepo;
+	
 	@Autowired
 	private Random random;
 	
 	@Autowired
 	RestTemplate rt;
 	
-	
+	// Tells the application context to inject an instance of TransactionsRepo here
 	@Autowired
 	TransactionsRepo transactionrepo;
 	
-	
+	// Tells the application context to inject an instance of UserRepo here
 	@Autowired
 	UserRepo userRepo;
 	
+	
+	 /**
+     * This method is used to add an account. 
+    * @return   WalletAccount : This returns the account
+    * an exception which is handled globally
+     */
  
 	@Transactional
 	public WalletAccount addWalletAccount(WalletAccount walletAccount) throws AccountAlreadyExistsException, InvalidAmountException{
@@ -61,8 +69,16 @@ public class AccountMsServiceImpl implements AccountMsService {
 
 	}
 	
-@Transactional
-public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
+
+	  /**
+      * This method is used to adding amount to existing account. 
+     * @param accountId,accountBalance  :This are the  paramters to add the amount into account
+     * @return   WalletAccount : This returns the accountId,Balance 
+     * an exception which is handled globally
+      */
+	  
+      @Transactional
+      public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
 		
 		if(!accountMsRepo.existsById(walletAccount.getAccountId())) {
 			throw new AccountNotFoundException("Account with id: "+walletAccount.getAccountId() +" Does not Exist ");
@@ -80,17 +96,17 @@ public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFou
 		
 		userAccount.setAccountBalance(newBalance);
 		
-		accountMsRepo.save(userAccount);
+		//accountMsRepo.save(userAccount);
 		
 		WalletTransaction walletTransaction= new WalletTransaction();
 		
 		 walletTransaction.setTransactionId(random.nextInt(1000000));
 	     walletTransaction.setDateOfTransaction(LocalDateTime.now());
 	     walletTransaction.setFromAccountId(0);
-		walletTransaction.setToAccountId(userAccount.getAccountId());
-		walletTransaction.setAccountBalance(newBalance);
-		walletTransaction.setDescription("Added");
-		walletTransaction.setAmount(walletAccount.getAccountBalance());
+		 walletTransaction.setToAccountId(userAccount.getAccountId());
+		 walletTransaction.setAccountBalance(newBalance);
+		 walletTransaction.setDescription("Added");
+		 walletTransaction.setAmount(walletAccount.getAccountBalance());
 		//transactionrepo.save(walletTransaction);
 		//System.out.println(walletTransaction);
 	//	System.out.println(userAccount);
@@ -107,14 +123,18 @@ public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFou
 		transactionrepo.save(walletTransaction);
 		
 		//System.out.println(userAccount);
-		//accountMsRepo.save(userAccount);
+		accountMsRepo.save(userAccount);
 		
 		return userAccount;
 		
 	}
 	
 	
-	
+      /**
+       * This method is used to get all WalletTranactionDetails. 
+      * @return   WalletTransactionList : This returns all the transactions 
+    
+       */
 	
 	
 	@Override
@@ -126,6 +146,12 @@ public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFou
 		return walletTransaction;
 		
 	}
+	
+	 /**
+     * This method is used to get all WalletAccounts.  
+    * @return List<WalletAccount> : This returns List of wallet Accounts
+    * an exception which is handled globally
+     */
 
 	@Override
 	public List<WalletAccount> getAllWalletAccount() throws AccountNotFoundException {
@@ -136,7 +162,13 @@ public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFou
 		}
 		return accountMsRepo.findAll();
 	}
-
+    
+	 /**
+     * This method is used to get one wallet account. 
+    * @param accountId:This is the  paramters to get one wallet account
+    * @return   WalletAccount : This returns the WalletAccount
+    * an exception which is handled globally
+     */
 	@Override
 	public WalletAccount getOneWalletAccount(int accountId) throws AccountNotFoundException {
 		// TODO Auto-generated method stub
@@ -145,117 +177,19 @@ public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFou
 		}
 		return accountMsRepo.getOne(accountId);
 	}
-
-//	@Override
-//	public WalletTransaction getOneWalletTransaction(int accountId) {
-//		// TODO Auto-generated method stub
-//		return transactionrepo.getOne(accountId);
-//	}
-
-
-//	public WalletAccount addAmount(WalletAccount walletAccount) throws AccountNotFoundException, InvalidAmountException {
-//		// TODO Auto-generated method stub
-//		if(!accountMsRepo.existsById(walletAccount.getAccountId())) {
-//			throw new AccountNotFoundException("Account with id: "+walletAccount.getAccountId() +" Does not Exist ");
-//		}
-//		
-//        if(walletAccount.getAccountBalance()<0) {
-//			throw new InvalidAmountException("Account Balance: "+walletAccount.getAccountBalance()+ "Invalid");	
-//		}
-//        
-//		WalletAccount account=accountMsRepo.getOne(walletAccount.getAccountId());
-//	    double newamount=account.getAccountBalance()+walletAccount.getAccountBalance();
-//		account.setAccountBalance(newamount);
-//		return accountMsRepo.save(account);	
-//	
-//	}
+	 /**
+     * This method is used to get list of transactions by using accountId
+    * @param accountId :This is the  paramter is used to get OneWalletTransaction
+    * @return  List<WalletTransaction> : This returns the transaction details of particular account by accountId
+     */
 	
-	
-//	public WalletUser addAmount(WalletAccount walletAccount) {
-//		
-//		WalletUser userAccount=rt.getForObject("http://localhost:8300/ewallet/getaccount/id/"+walletAccount.getAccountId(), WalletUser.class);
-//		
-//		WalletAccount walletAcc=userAccount.getWalletAccount();
-//		
-//		double balance= walletAcc.getAccountBalance();
-//		
-//		double newBalance=walletAccount.getAccountBalance()+balance;
-//		
-//		walletAcc.setAccountBalance(newBalance);
-//		userAccount.setWalletAccount(walletAcc);
-//		
-//	     userRepo.save(userAccount);
-//		
-//	     return userAccount;
-//	     
-//	}
-
-	
-	
-//	@Override
-//	public WalletAccount fundtransfer(double amount, int fromAccountId, int toAccountId) {
-//		// TODO Auto-generated method stub
-//		WalletAccount fromAccount=accountMsRepo.getOne(fromAccountId);
-//		WalletAccount toAccount=accountMsRepo.getOne(toAccountId);
-//		double fromBalance=fromAccount.getAccountBalance();
-//		double toBalance=toAccount.getAccountBalance();
-//		double newBalance=fromBalance-amount;
-//		double newBalanceToAccount=toBalance+amount;
-//		fromAccount.setAccountBalance(newBalance);
-//		toAccount.setAccountBalance(newBalanceToAccount);
-//		accountMsRepo.save(fromAccount);
-//		accountMsRepo.save(toAccount);
-//		return toAccount;
-//	}
-
-//	@Override
-//	public WalletAccount fundtransfer(WalletTransactions walletTransactions) {
-//		// TODO Auto-generated method stub
-//		
-//		//int transactionId=transferData.getTransactionId();
-//		String description=walletTransactions.getDescription();
-//		WalletAccount fromAccount=accountMsRepo.getOne(walletTransactions.getFromAccountId());
-//		WalletAccount toAccount=accountMsRepo.getOne(walletTransactions.getToAccountId());
-//		double toBalance=toAccount.getAccountBalance();
-//		double fromBalance=fromAccount.getAccountBalance();
-//		double newBalance=fromBalance-walletTransactions.getAmount();
-//		double newBalanceToAccount=toBalance+walletTransactions.getAmount();
-//		fromAccount.setAccountBalance(newBalance);
-//		toAccount.setAccountBalance(newBalanceToAccount);
-//		accountMsRepo.save(fromAccount);
-//		accountMsRepo.save(toAccount);
-//		walletTransactions.setTransactionId(random.nextInt(1000000));
-//		walletTransactions.setDateOfTransaction(LocalDateTime.now());
-//		
-//		walletTransactions.setAccountBalance(newBalanceToAccount);
-//		transactionrepo.save(walletTransactions);
-//		return toAccount;
-//	}
-
-	
-
-//	@Override
-//	public WalletAccount updateWalletAccount(WalletAccount walletAccount) {
-//		// TODO Auto-generated method stub
-//		
-//		
-//		return accountMsRepo.save(walletAccount);
-//	}
-	
-//	@Autowired
-//	TransactionsRepo transactionrepo;
-//	
-//	public WalletTransactions createBasicTransaction() {
-//		WalletTransactions transaction=new WalletTransactions();
-//		Random r=new Random();
-//		LocalDateTime now=LocalDateTime.now();
-//		int transactionId=r.nextInt(1000);
-//		transaction.setTransactionId(transactionId);
-//		transaction.setDateOfTransaction(now);
-//		return transactionrepo.save(transaction);
-//		
-//	}
-
+	@Override
+	public List<WalletTransaction> getOneWalletTransaction(int accountId) {
+		// TODO Auto-generated method stub
+		WalletAccount wa=accountMsRepo.getOne(accountId);
+		return wa.gettHistory();
+		//return transactionrepo.getOne(accountId);
+	}
 
 		
 }

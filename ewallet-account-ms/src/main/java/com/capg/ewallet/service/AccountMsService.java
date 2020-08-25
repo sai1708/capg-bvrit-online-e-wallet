@@ -25,6 +25,8 @@ public interface AccountMsService {
 	
 	public WalletTransactionList getAllWalletTransaction();
 
+	public List<WalletTransaction> getOneWalletTransaction(int accountId);
+
 	//public WalletTransaction getOneWalletTransaction(int accountId);
 	
 	
