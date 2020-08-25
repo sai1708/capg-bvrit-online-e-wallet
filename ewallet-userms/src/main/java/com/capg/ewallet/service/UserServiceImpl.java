@@ -2,6 +2,8 @@
 package com.capg.ewallet.service;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,9 @@ import org.springframework.stereotype.Service;
 import com.capg.ewallet.errors.AccountNotFoundException;
 import com.capg.ewallet.errors.UserAlreadyExistsException;
 import com.capg.ewallet.errors.UserNotFoundException;
+import com.capg.ewallet.exception.UserNameInvalidException;
+import com.capg.ewallet.exception.UserNumberInvalidException;
+import com.capg.ewallet.exception.UserPasswordInvalidException;
 import com.capg.ewallet.model.WalletAccount;
 import com.capg.ewallet.model.WalletUser;
 import com.capg.ewallet.repo.AccountMsRepo;
@@ -28,9 +33,33 @@ public class UserServiceImpl implements UserService{
 	public WalletUser createWalletUser(WalletUser walletUser) throws UserAlreadyExistsException {
 		// TODO Auto-generated method stub
 		
-		if(userRepo.existsById(walletUser.getUserId())) {
+		Pattern p1=Pattern.compile("[A-Z]{1}[a-zA-Z0-9]{6,14}$");
+		Matcher m1=p1.matcher(walletUser.getUserName());
+		Pattern p2=Pattern.compile("^(?=.*[0-9])"+ "(?=.*[a-z])(?=.*[A-Z])"+ "(?=.*[@#$%^&+=])"+ "(?=\\S+$).{8,20}$");
+		Matcher m2=p2.matcher(walletUser.getPassword());
+		Pattern p3=Pattern.compile("\\d{10}");
+		Matcher m3=p3.matcher(walletUser.getPhoneNumber().toString());
+		if(!(m1.find() &&  m1.group().equals(walletUser.getUserName())))
+		{
+			throw new UserNameInvalidException("Username should start with capital letter ad size should be 6-14  characters");
+			
+		}
+		else if(!( m2.find() &&  m2.group().equals(walletUser.getPassword())) )
+		{
+   			throw new UserPasswordInvalidException("User password must contain "
+   					+ "capital letter,small letters and special character "
+   					+ "without starting with number and range should be between 8 and 20");
+		}
+		
+		else if(!( m3.find() &&  m3.group().equals(walletUser.getPhoneNumber().toString())) )
+		{
+			throw new UserNumberInvalidException("contact number should contain 10 digits");
+		}
+	
+		else if(userRepo.existsById(walletUser.getUserId())) {
 			throw new UserAlreadyExistsException("user already exists");
 		}
+		else
 		return userRepo.save(walletUser);
 	}
 

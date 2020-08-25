@@ -72,6 +72,5 @@ public class WalletUser {
 	public WalletUser() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+	 
 }
