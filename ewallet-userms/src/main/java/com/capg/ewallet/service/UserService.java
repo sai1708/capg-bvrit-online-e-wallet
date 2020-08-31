@@ -2,6 +2,8 @@ package com.capg.ewallet.service;
 
 import java.util.List;
 
+import org.apache.tomcat.jni.User;
+
 import com.capg.ewallet.errors.AccountNotFoundException;
 import com.capg.ewallet.errors.UserAlreadyExistsException;
 import com.capg.ewallet.errors.UserNotFoundException;
@@ -19,6 +21,8 @@ public interface UserService {
 	public WalletUser getUser(int userId, String password) throws UserNotFoundException;
 
 	public void deleteWalletUser(int userId);
+
+	public int findByUserId(int userId);
 	
 	
 

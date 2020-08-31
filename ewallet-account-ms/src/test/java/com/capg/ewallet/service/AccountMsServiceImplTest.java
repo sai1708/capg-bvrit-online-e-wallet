@@ -42,20 +42,6 @@ class AccountMsServiceImplTest {
 		
 	}
 
-
-	@Test
-	void testAddAmount() throws AccountNotFoundException, InvalidAmountException {
-		
-//
-//		List<WalletTransaction> tests= new ArrayList();
-//		tests.add(new WalletTransaction(879933,"transfered",LocalDateTime.now(),200,205,500,2000));
-//		WalletAccount account=new WalletAccount(200,500.0,null,tests);
-//		
-		WalletAccount addamount=accountMsService.addAmount(wa);
-		
-		assertEquals(1000,addamount.getAccountBalance());
-		
-	}
 	@Test
 	public void testInvalidamountException() {
 		

@@ -2,6 +2,7 @@ package com.capg.ewallet.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,13 @@ import com.capg.ewallet.model.WalletUser;
 import com.capg.ewallet.service.AccountMsService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
+/**
+	* The LoginController class Do the Authentication of A User
+	*
+	* @author   :SAI MONAGARI
+	* @version  :1.0
+	* @since    :2020-08-24 
+**/
 
 @RestController
 

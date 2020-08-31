@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: ewallet-login
+server:  port: 8000
+zuul:  routes:    user-ms:
+      path: /users/**
+      service-id: ewallet-userms
+      strip-prefix: false
+    
+    transcation-ms:
+      path: /transaction/**
+      service-id: ewallet-transcation-ms
+      strip-prefix: false
+      
+    account-ms:
+      path: /ewallet/**
+      service-id: ewallet-account-ms
+      strip-prefix: false
+      
+   
+      

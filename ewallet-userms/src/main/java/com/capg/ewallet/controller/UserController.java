@@ -1,3 +1,4 @@
+
 package com.capg.ewallet.controller;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class UserController {
 //		return service.createWalletAdmin(walletAdmin);
 //		
 //	}
-//	
+	
 	
 	@DeleteMapping("/public/deleteaccount/id/{id}")
 	public void deleteWalletUser(@PathVariable ("id") int userId) {
@@ -57,6 +58,8 @@ public class UserController {
 	public List<WalletUser> getAllWalletUser(){
 		return userService.getAllWalletUser();	
 	}
+	
+
 	
 	@GetMapping("/public/getaccount/id/{id}")
 	public WalletAccount getOneAccount(@PathVariable ("id") int accountId) throws AccountNotFoundException {
@@ -70,6 +73,12 @@ public class UserController {
 		WalletUser user= userService.getUser(credentials.getUserId(), credentials.getPassword());
 		
 		return new UserCredentials(user.getUserId(), user.getPassword());
+		
+	}
+	
+	@GetMapping("/getaccount/id/{id}")
+	public int findByUserId(@PathVariable ("id") int userId) {
+		return userService.findByUserId(userId);
 		
 	}
 	
